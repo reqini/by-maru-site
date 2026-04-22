@@ -492,6 +492,27 @@ section{padding:100px 8%;}
 .juli-ver-mas{display:flex;align-items:center;justify-content:center;padding:10px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-top:1px solid rgba(180,122,110,.1);transition:color .2s;gap:6px;}
 .juli-ver-mas:hover{color:var(--rose);}
 
+/* ── multi-select servicios ── */
+.svc-picker-wrap{margin-top:4px;}
+.svc-grp-hdr{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  padding:10px 0 6px;margin-top:8px;border-top:1px solid rgba(180,122,110,.12);
+  display:flex;align-items:center;gap:8px;}
+.svc-grp-hdr:first-child{border-top:none;margin-top:0;}
+.svc-grp-who{font-size:11px;background:var(--warm);color:var(--deep);
+  padding:2px 10px;border-radius:20px;letter-spacing:.5px;text-transform:none;}
+.svc-pills{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:2px;}
+.svc-pill{display:inline-flex;align-items:center;padding:6px 14px;
+  border:1px solid rgba(180,122,110,.3);border-radius:20px;
+  font-size:12px;color:var(--muted);cursor:pointer;background:var(--cream);
+  transition:all .18s;-webkit-tap-highlight-color:transparent;user-select:none;}
+.svc-pill:hover{border-color:var(--rose);color:var(--deep);background:var(--warm);}
+.svc-pill.sel-maru{background:var(--deep);color:var(--cream);border-color:var(--deep);}
+.svc-pill.sel-juli{background:var(--blush);color:#fff;border-color:var(--blush);}
+.svc-summary{margin-top:8px;padding:9px 13px;background:var(--warm);border-radius:3px;
+  font-size:12px;color:var(--deep);border-left:3px solid var(--blush);
+  display:none;line-height:1.5;}
+.svc-summary.show{display:block;}
+
 /* COTIZACIÓN */
 #cotizacion{background:var(--deep);padding:100px 8%;}
 #cotizacion .section-title{color:var(--cream);}
@@ -1106,16 +1127,15 @@ button, a{
 <section id="galeria">
   <div class="section-tag">Galería</div>
   <h2 class="section-title">Mirá mis <em>trabajos</em></h2>
-  <p class="section-sub" style="display: none;">Resultados reales, clientes reales. Cada trabajo es una muestra de dedicación y detalle.</p>
+  <p class="section-sub">Resultados reales, clientes reales. Cada trabajo es una muestra de dedicación y detalle.</p>
 
-  <div class="galeria-filters" style="display: none;">
+  <div class="galeria-filters">
     <button class="gal-filter active" onclick="filterGal('todos',this)">Todos</button>
     <button class="gal-filter" onclick="filterGal('masajes',this)">Masajes</button>
     <button class="gal-filter" onclick="filterGal('facial',this)">Facial</button>
     <button class="gal-filter" onclick="filterGal('unas',this)">Uñas</button>
     <button class="gal-filter" onclick="filterGal('pestanas',this)">Pestañas</button>
     <button class="gal-filter" onclick="filterGal('cejas',this)">Cejas</button>
-    <button class="gal-filter" onclick="filterGal('video',this)">🎬 Videos</button>
   </div>
 
   <div class="masonry-grid" id="masonryGrid"></div>
@@ -1233,21 +1253,45 @@ button, a{
           <div class="form-group"><label>Teléfono</label><input type="tel" id="tn-t" placeholder="11 xxxx-xxxx"></div>
         </div>
         <div class="form-group">
-          <label>Servicio</label>
-          <select id="tn-s"><option value="">Seleccioná un servicio</option>
-            <optgroup label="— Masajes &amp; Facial (Maru) —">
-              <option>Limpieza facial simple</option><option>Limpieza facial profunda</option><option>Limpieza doble profunda</option>
-              <option>Tratamiento para acné</option><option>Peeling manual</option><option>Peeling mecánico</option><option>Peeling enzimático</option>
-              <option>Alta frecuencia</option><option>Masaje facial</option>
-              <option>Masaje relajante</option><option>Masaje descontracturante</option><option>Masaje con piedras calientes</option><option>Masaje de cuello</option><option>Drenaje linfático</option>
-            </optgroup>
-            <optgroup label="— Uñas / Pestañas / Cejas (Julieta) —">
-              <option>Manicuría semipermanente</option><option>Pies semipermanente</option><option>Soft gel</option><option>Capping</option>
-              <option>Extras (French, baby boomer, ojo de gatto, cromo)</option><option>Full diseño</option><option>Retiro de semi</option><option>Retiro Soft / Capping</option>
-              <option>Lifting de pestañas</option><option>Perfilado de pestañas</option><option>Laminado de pestañas</option><option>Henna de pestañas</option>
-              <option>Diseño de cejas</option><option>Laminado de cejas</option>
-            </optgroup>
-          </select>
+          <label>Servicio
+            <small style="color:var(--blush);font-size:10px;font-weight:300;text-transform:none"> (elegí uno o más)</small>
+          </label>
+          <div class="svc-picker-wrap" id="svc-picker">
+            <div class="svc-grp-hdr"><span class="svc-grp-who">💆 Maru</span>Masajes &amp; Facial</div>
+            <div class="svc-pills">
+              <span class="svc-pill" data-v="Limpieza facial simple"     data-p="maru" onclick="svcToggle(this)">Limpieza facial simple</span>
+              <span class="svc-pill" data-v="Limpieza facial profunda"   data-p="maru" onclick="svcToggle(this)">Limpieza facial profunda</span>
+              <span class="svc-pill" data-v="Limpieza doble profunda"    data-p="maru" onclick="svcToggle(this)">Limpieza doble profunda</span>
+              <span class="svc-pill" data-v="Tratamiento para acné"      data-p="maru" onclick="svcToggle(this)">Tratamiento acné</span>
+              <span class="svc-pill" data-v="Peeling manual"             data-p="maru" onclick="svcToggle(this)">Peeling manual</span>
+              <span class="svc-pill" data-v="Peeling mecánico"           data-p="maru" onclick="svcToggle(this)">Peeling mecánico</span>
+              <span class="svc-pill" data-v="Peeling enzimático"         data-p="maru" onclick="svcToggle(this)">Peeling enzimático</span>
+              <span class="svc-pill" data-v="Alta frecuencia"            data-p="maru" onclick="svcToggle(this)">Alta frecuencia</span>
+              <span class="svc-pill" data-v="Masaje facial"              data-p="maru" onclick="svcToggle(this)">Masaje facial</span>
+              <span class="svc-pill" data-v="Masaje relajante"           data-p="maru" onclick="svcToggle(this)">Masaje relajante</span>
+              <span class="svc-pill" data-v="Masaje descontracturante"   data-p="maru" onclick="svcToggle(this)">Masaje descontracturante</span>
+              <span class="svc-pill" data-v="Masaje con piedras calientes" data-p="maru" onclick="svcToggle(this)">Piedras calientes</span>
+              <span class="svc-pill" data-v="Drenaje linfático"          data-p="maru" onclick="svcToggle(this)">Drenaje linfático</span>
+            </div>
+            <div class="svc-grp-hdr"><span class="svc-grp-who">💅 Julieta</span>Uñas · Pestañas · Cejas</div>
+            <div class="svc-pills">
+              <span class="svc-pill" data-v="Manicuría semipermanente"   data-p="juli" onclick="svcToggle(this)">Semi manos</span>
+              <span class="svc-pill" data-v="Pies semipermanente"        data-p="juli" onclick="svcToggle(this)">Semi pies</span>
+              <span class="svc-pill" data-v="Soft gel"                   data-p="juli" onclick="svcToggle(this)">Soft gel</span>
+              <span class="svc-pill" data-v="Capping"                    data-p="juli" onclick="svcToggle(this)">Capping</span>
+              <span class="svc-pill" data-v="Full diseño"                data-p="juli" onclick="svcToggle(this)">Full diseño</span>
+              <span class="svc-pill" data-v="Extras (French, baby boomer, ojo de gatto, cromo)" data-p="juli" onclick="svcToggle(this)">Extras diseño</span>
+              <span class="svc-pill" data-v="Retiro de semi"             data-p="juli" onclick="svcToggle(this)">Retiro semi</span>
+              <span class="svc-pill" data-v="Retiro Soft / Capping"      data-p="juli" onclick="svcToggle(this)">Retiro soft/capping</span>
+              <span class="svc-pill" data-v="Lifting de pestañas"        data-p="juli" onclick="svcToggle(this)">Lifting pestañas</span>
+              <span class="svc-pill" data-v="Perfilado de pestañas"      data-p="juli" onclick="svcToggle(this)">Perfilado pestañas</span>
+              <span class="svc-pill" data-v="Laminado de pestañas"       data-p="juli" onclick="svcToggle(this)">Laminado pestañas</span>
+              <span class="svc-pill" data-v="Henna de pestañas"          data-p="juli" onclick="svcToggle(this)">Henna pestañas</span>
+              <span class="svc-pill" data-v="Diseño de cejas"            data-p="juli" onclick="svcToggle(this)">Diseño cejas</span>
+              <span class="svc-pill" data-v="Laminado de cejas"          data-p="juli" onclick="svcToggle(this)">Laminado cejas</span>
+            </div>
+            <div class="svc-summary" id="svc-summary"></div>
+          </div>
         </div>
         <div class="form-group">
           <label>Horario preferido</label>
@@ -1528,9 +1572,9 @@ const GI = [
   { tipo:'foto',  src:'assets/imagen-017.jpeg', label:'Masaje descontracturante',  sub:'Alivio de contracturas profundas',           cat:'unas'  },
   { tipo:'foto',  src:'assets/imagen-018.jpeg', label:'Laminado de pestañas',      sub:'Efecto espectacular, hasta 6 semanas',       cat:'unas' },
   { tipo:'foto',  src:'assets/imagen-019.jpeg', label:'Masaje descontracturante',  sub:'Alivio de contracturas profundas',           cat:'unas'  },
-  { tipo:'video', src:'assets/video-4.mp4',     label:'Masaje paso a paso',        sub:'Técnica relajante completa',                 cat:'masajes'  }
-/*   { tipo:'video', src:'assets/video-2.mp4',     label:'Semipermanente — proceso',  sub:'De la preparación al resultado final',       cat:'unas'     },
-  { tipo:'video', src:'assets/video-3.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'pestanas' } */
+  { tipo:'video', src:'assets/video-1.mp4',     label:'Masaje paso a paso',        sub:'Técnica relajante completa',                 cat:'masajes'  },
+  { tipo:'video', src:'assets/video-2.mp4',     label:'Semipermanente — proceso',  sub:'De la preparación al resultado final',       cat:'unas'     },
+  { tipo:'video', src:'assets/video-3.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'pestanas' }
 /*   { tipo:'video', src:'assets/video-4.mp4',     label:'Peeling enzimático',        sub:'Protocolo de renovación celular',            cat:'facial'   },
   { tipo:'video', src:'assets/video-5.mp4',     label:'Nail art full diseño',      sub:'Arte detallado a mano libre',                cat:'unas'     },
   { tipo:'video', src:'assets/video-6.mp4',     label:'Henna de cejas',            sub:'Color y definición natural',                 cat:'cejas'    },
@@ -1547,9 +1591,9 @@ const GAL_SPEED = 4500;
 
 /* ── GRID ─────────────────────────────────────────────── */
 function renderGaleria() {
-  galItems = galFilter === 'todos' ? [...GI]
-           : galFilter === 'video' ? GI.filter(x => x.tipo === 'video')
-           : GI.filter(x => x.cat === galFilter);
+  var GI_FOTOS = GI.filter(function(x){ return x.tipo === 'foto'; });
+  galItems = galFilter === 'todos' ? GI_FOTOS.slice()
+           : GI_FOTOS.filter(function(x){ return x.cat === galFilter; });
 
   const grid = document.getElementById('masonryGrid');
   if (!grid) return;
@@ -1930,48 +1974,100 @@ function notificarEmail(asunto, cuerpo){
 }
 
 // Guarda un turno desde el formulario público y abre WhatsApp
+/* ── svc-picker ── */
+function svcToggle(pill){
+  var prof = pill.getAttribute('data-p');
+  var cls  = prof === 'maru' ? 'sel-maru' : 'sel-juli';
+  if(pill.classList.contains(cls)){ pill.classList.remove(cls); }
+  else { pill.classList.add(cls); }
+  svcUpdateSummary();
+}
+function svcUpdateSummary(){
+  var items = svcGetSelected();
+  var el = document.getElementById('svc-summary');
+  if(!el) return;
+  if(items.length){
+    el.textContent = '✓ ' + items.map(function(x){ return x.v; }).join(' · ');
+    el.classList.add('show');
+  } else {
+    el.textContent = '';
+    el.classList.remove('show');
+  }
+}
+function svcGetSelected(){
+  var result = [];
+  var pills = document.querySelectorAll('#svc-picker .svc-pill.sel-maru, #svc-picker .svc-pill.sel-juli');
+  for(var i = 0; i < pills.length; i++){
+    result.push({ v: pills[i].getAttribute('data-v'), p: pills[i].getAttribute('data-p') });
+  }
+  return result;
+}
+function svcClear(){
+  var pills = document.querySelectorAll('#svc-picker .svc-pill');
+  for(var i = 0; i < pills.length; i++){
+    pills[i].classList.remove('sel-maru','sel-juli');
+  }
+  var el = document.getElementById('svc-summary');
+  if(el){ el.textContent = ''; el.classList.remove('show'); }
+}
+
 function reservarTurno(){
-  const n=document.getElementById('tn-n').value.trim();
-  const tel=document.getElementById('tn-t').value.trim();
-  const s=document.getElementById('tn-s').value;
-  const h=document.getElementById('tn-h').value;
-  const f=document.getElementById('selDateTxt').textContent;
-  if(!n){alert('Por favor ingresá tu nombre');return;}
-  if(!s){alert('Por favor seleccioná un servicio');return;}
+  var n   = document.getElementById('tn-n').value.trim();
+  var tel = document.getElementById('tn-t').value.trim();
+  var h   = document.getElementById('tn-h').value;
+  var selTxt = document.getElementById('selDateTxt');
+  var f   = selTxt ? selTxt.textContent : '';
+  var svcs = svcGetSelected();
 
-  // Determinar a quién va el turno
-  const dest=wspParaServicio(s);
-  const prof=nombreParaServicio(s);
+  if(!n)           { alert('Por favor ingresá tu nombre'); return; }
+  if(!svcs.length) { alert('Por favor seleccioná al menos un servicio'); return; }
 
-  // 1. Guardar en el dashboard
-  const ts=getTurnosUser(dest===WSP_MARU?'maru':'julieta');
-  const id=ts.length?Math.max(...ts.map(x=>x.id))+1:1;
-  let fechaFmt=f;
-  if(selDate){fechaFmt=`${selDate.getDate().toString().padStart(2,'0')}/${(selDate.getMonth()+1).toString().padStart(2,'0')}/${selDate.getFullYear()}`;}
-  ts.push({id,n,t:tel.replace(/\D/g,''),s,f:fechaFmt,h:h||'—',e:'pendiente',nota:`Llegó desde formulario web · Para ${prof}`,origen:'web'});
-  saveTurnosUser(dest===WSP_MARU?'maru':'julieta',ts);
+  var fechaFmt = f;
+  if(selDate){
+    fechaFmt = ('0'+selDate.getDate()).slice(-2) + '/'
+             + ('0'+(selDate.getMonth()+1)).slice(-2) + '/'
+             + selDate.getFullYear();
+  }
 
-  // 2. WhatsApp al número correcto
-  let msg=`Hola ${prof}! 🌸 Nueva solicitud de turno:\n\n👤 Nombre: ${n}\n`;
-  if(tel)msg+=`📱 Tel: ${tel}\n`;
-  if(fechaFmt&&fechaFmt!=='—')msg+=`📅 Fecha: ${fechaFmt}\n`;
-  if(h)msg+=`🕐 Horario: ${h}\n`;
-  msg+=`✨ Servicio: ${s}\n\n¿Confirmás disponibilidad?`;
-  window.open(`https://wa.me/${dest}?text=${encodeURIComponent(msg)}`,'_blank');
+  var svcsMaru = svcs.filter(function(x){ return x.p === 'maru'; }).map(function(x){ return x.v; });
+  var svcsJuli = svcs.filter(function(x){ return x.p === 'juli'; }).map(function(x){ return x.v; });
 
-  // 3. Notificar email CC
-  notificarEmail(
-    `Nuevo turno web — ${n} → ${prof}`,
-    `Servicio: ${s}\nFecha: ${fechaFmt}\nHorario: ${h}\nTeléfono: ${tel}\nPara: ${prof}`
-  );
+  function enviarA(dest, prof, lista){
+    var ts = getTurnosUser(dest === WSP_MARU ? 'maru' : 'julieta');
+    var id = ts.length ? Math.max.apply(null, ts.map(function(x){ return x.id; })) + 1 : 1;
+    ts.push({ id:id, n:n, t:tel.replace(/\D/g,''), s:lista.join(' + '),
+              f:fechaFmt, h:h||'\u2014', e:'pendiente',
+              nota:'Formulario web \u00b7 Para '+prof, origen:'web' });
+    saveTurnosUser(dest === WSP_MARU ? 'maru' : 'julieta', ts);
 
-  // 4. Feedback y limpiar
-  showPublicToast(`✅ Solicitud enviada a ${prof}! Te respondemos pronto.`);
-  ['tn-n','tn-t'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('tn-s').selectedIndex=0;
-  document.getElementById('tn-h').selectedIndex=0;
-  document.getElementById('selDate').style.display='none';
-  selDate=null;renderCal();
+    var msg = 'Hola '+prof+'! \uD83C\uDF38 Nueva solicitud de turno:\n\n\uD83D\uDC64 Nombre: '+n+'\n';
+    if(tel)                           msg += '\uD83D\uDCF1 Tel: '+tel+'\n';
+    if(fechaFmt && fechaFmt !== '\u2014')  msg += '\uD83D\uDCC5 Fecha: '+fechaFmt+'\n';
+    if(h)                             msg += '\uD83D\uDD50 Horario: '+h+'\n';
+    msg += '\u2728 Servicio'+(lista.length>1?'s':'')+': '+lista.join(', ')+'\n\n\u00BFConfirm\u00E1s disponibilidad?';
+    window.open('https://wa.me/'+dest+'?text='+encodeURIComponent(msg), '_blank');
+    notificarEmail('Turno web \u2014 '+n+' \u2192 '+prof,
+                   'Servicios: '+lista.join(', ')+'\nFecha: '+fechaFmt+'\nHorario: '+h+'\nTel: '+tel);
+  }
+
+  if(svcsMaru.length) enviarA(WSP_MARU, 'Maru', svcsMaru);
+  if(svcsJuli.length){
+    if(svcsMaru.length){ setTimeout(function(){ enviarA(WSP_JULI,'Julieta',svcsJuli); }, 350); }
+    else { enviarA(WSP_JULI, 'Julieta', svcsJuli); }
+  }
+
+  var destLabel = (svcsMaru.length && svcsJuli.length) ? 'Maru y Julieta'
+                : svcsMaru.length ? 'Maru' : 'Julieta';
+  showPublicToast('\u2705 Solicitud enviada a '+destLabel+'!');
+
+  document.getElementById('tn-n').value = '';
+  document.getElementById('tn-t').value = '';
+  svcClear();
+  var tnH = document.getElementById('tn-h');
+  if(tnH) tnH.selectedIndex = 0;
+  var sdEl = document.getElementById('selDate');
+  if(sdEl) sdEl.style.display = 'none';
+  selDate = null; renderCal();
 }
 
 function enviarCotizacion(){
