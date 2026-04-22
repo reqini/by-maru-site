@@ -668,6 +668,51 @@ footer{background:var(--bark);padding:70px 8% 40px;color:rgba(249,244,238,.7);}
 .wk-legend span{display:flex;align-items:center;gap:6px;}
 .wk-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;}
 
+
+/* ── nt-svc picker (nuevo turno dashboard) ── */
+.nt-svc-wrap{margin-top:4px;}
+.nt-svc-grp{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);
+  padding:10px 0 5px;margin-top:8px;border-top:1px solid rgba(180,122,110,.1);
+  display:flex;align-items:center;gap:8px;}
+.nt-svc-grp:first-child{border-top:none;margin-top:0;}
+.nt-svc-who{background:var(--warm);color:var(--deep);font-size:11px;
+  padding:2px 9px;border-radius:20px;text-transform:none;letter-spacing:.4px;}
+.nt-svc-pills{display:flex;flex-wrap:wrap;gap:5px;padding-bottom:3px;}
+.nt-svc-pill{display:inline-flex;align-items:center;padding:5px 12px;
+  border:1px solid rgba(180,122,110,.28);border-radius:20px;
+  font-size:11px;color:var(--muted);cursor:pointer;background:var(--cream);
+  transition:all .15s;user-select:none;-webkit-tap-highlight-color:transparent;}
+.nt-svc-pill:hover{border-color:var(--rose);color:var(--deep);background:var(--warm);}
+.nt-svc-pill.on{background:var(--deep);color:var(--cream);border-color:var(--deep);}
+.nt-svc-summary{margin-top:7px;padding:8px 12px;background:var(--warm);border-radius:3px;
+  font-size:12px;color:var(--deep);border-left:3px solid var(--blush);
+  display:none;line-height:1.5;}
+.nt-svc-summary.vis{display:block;}
+
+/* ── mejoras panel Julieta ── */
+.juli-filter-bar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 12px;}
+.juli-fbtn{padding:5px 13px;border:1px solid rgba(180,122,110,.25);background:transparent;
+  color:var(--muted);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;border-radius:20px;cursor:pointer;transition:all .2s;}
+.juli-fbtn.on,.juli-fbtn:hover{background:var(--blush);border-color:var(--blush);color:#fff;}
+.juli-search{padding:7px 12px;border:1px solid rgba(180,122,110,.25);background:var(--white);
+  color:var(--text);font-family:'Jost',sans-serif;font-size:12px;border-radius:3px;
+  outline:none;transition:border-color .2s;width:200px;}
+.juli-search:focus{border-color:var(--rose);}
+.juli-action-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.juli-confirm-btn{padding:6px 13px;border:none;border-radius:3px;font-family:'Jost',sans-serif;
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  background:var(--deep);color:var(--cream);transition:background .2s;}
+.juli-confirm-btn:hover{background:#25a040;}
+.juli-cancel-btn{padding:6px 13px;border:none;border-radius:3px;font-family:'Jost',sans-serif;
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  background:rgba(231,76,60,.1);color:#c0392b;transition:background .2s;}
+.juli-cancel-btn:hover{background:rgba(231,76,60,.2);}
+.juli-mini-item{display:flex;align-items:center;gap:10px;padding:8px 12px;
+  background:var(--cream);border-radius:4px;font-size:12px;cursor:default;
+  border:1px solid transparent;transition:border-color .15s;}
+.juli-mini-item:hover{border-color:rgba(180,122,110,.2);}
+
 /* Nuevo turno / Editar */
 .nt-form{background:var(--white);border-radius:6px;border:1px solid rgba(180,122,110,.12);padding:32px;max-width:620px;}
 .nt-form-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--bark);margin-bottom:24px;}
@@ -2461,8 +2506,68 @@ function renderTabSem(d){document.getElementById('dbContent').innerHTML=renderSe
 
 /* ── NUEVO TURNO ── */
 function renderNT(){
-  const svcs=activeUser&&activeUser.u==='julieta'?SERVICIOS_JULI:SERVICIOS_MARU;
-  const allSvcs=[...SERVICIOS_MARU,...SERVICIOS_JULI];
+  const isMaru = activeUser && activeUser.u === 'maru';
+  const today = new Date();
+  const todayStr = ('0'+today.getDate()).slice(-2) + '/' + ('0'+(today.getMonth()+1)).slice(-2) + '/' + today.getFullYear();
+
+  const maruPicker = `<div class="nt-svc-wrap" id="nt-svc-picker">
+            <div class="nt-svc-grp"><span class="nt-svc-who">💆 Maru</span>Masajes &amp; Facial</div>
+            <div class="nt-svc-pills">
+              <span class="nt-svc-pill" data-v="Limpieza facial simple" data-p="maru" onclick="ntSvcToggle(this)">Limpieza facial simple</span>
+              <span class="nt-svc-pill" data-v="Limpieza facial profunda" data-p="maru" onclick="ntSvcToggle(this)">Limpieza facial profunda</span>
+              <span class="nt-svc-pill" data-v="Limpieza doble profunda" data-p="maru" onclick="ntSvcToggle(this)">Limpieza doble profunda</span>
+              <span class="nt-svc-pill" data-v="Tratamiento para acné" data-p="maru" onclick="ntSvcToggle(this)">Tratamiento para acné</span>
+              <span class="nt-svc-pill" data-v="Peeling manual" data-p="maru" onclick="ntSvcToggle(this)">Peeling manual</span>
+              <span class="nt-svc-pill" data-v="Peeling mecánico" data-p="maru" onclick="ntSvcToggle(this)">Peeling mecánico</span>
+              <span class="nt-svc-pill" data-v="Peeling enzimático" data-p="maru" onclick="ntSvcToggle(this)">Peeling enzimático</span>
+              <span class="nt-svc-pill" data-v="Alta frecuencia" data-p="maru" onclick="ntSvcToggle(this)">Alta frecuencia</span>
+              <span class="nt-svc-pill" data-v="Masaje facial" data-p="maru" onclick="ntSvcToggle(this)">Masaje facial</span>
+              <span class="nt-svc-pill" data-v="Masaje relajante" data-p="maru" onclick="ntSvcToggle(this)">Relajante</span>
+              <span class="nt-svc-pill" data-v="Masaje descontracturante" data-p="maru" onclick="ntSvcToggle(this)">Descontracturante</span>
+              <span class="nt-svc-pill" data-v="Masaje con piedras calientes" data-p="maru" onclick="ntSvcToggle(this)">Piedras calientes</span>
+              <span class="nt-svc-pill" data-v="Masaje de cuello" data-p="maru" onclick="ntSvcToggle(this)">Masaje de cuello</span>
+              <span class="nt-svc-pill" data-v="Drenaje linfático" data-p="maru" onclick="ntSvcToggle(this)">Drenaje linfático</span>
+            </div>
+            <div class="nt-svc-grp"><span class="nt-svc-who">💅 Julieta</span>Uñas · Pestañas · Cejas</div>
+            <div class="nt-svc-pills">
+              <span class="nt-svc-pill" data-v="Manicuría semipermanente" data-p="juli" onclick="ntSvcToggle(this)">Semi manos</span>
+              <span class="nt-svc-pill" data-v="Pies semipermanente" data-p="juli" onclick="ntSvcToggle(this)">Semi pies</span>
+              <span class="nt-svc-pill" data-v="Soft gel" data-p="juli" onclick="ntSvcToggle(this)">Soft gel</span>
+              <span class="nt-svc-pill" data-v="Capping" data-p="juli" onclick="ntSvcToggle(this)">Capping</span>
+              <span class="nt-svc-pill" data-v="Extras (French, baby boomer, ojo de gatto, cromo)" data-p="juli" onclick="ntSvcToggle(this)">Extras diseño</span>
+              <span class="nt-svc-pill" data-v="Full diseño" data-p="juli" onclick="ntSvcToggle(this)">Full diseño</span>
+              <span class="nt-svc-pill" data-v="Retiro de semi" data-p="juli" onclick="ntSvcToggle(this)">Retiro de semi</span>
+              <span class="nt-svc-pill" data-v="Retiro Soft / Capping" data-p="juli" onclick="ntSvcToggle(this)">Retiro soft/capping</span>
+              <span class="nt-svc-pill" data-v="Lifting de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Lifting de pestañas</span>
+              <span class="nt-svc-pill" data-v="Perfilado de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Perfilado de pestañas</span>
+              <span class="nt-svc-pill" data-v="Laminado de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Laminado de pestañas</span>
+              <span class="nt-svc-pill" data-v="Henna de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Henna de pestañas</span>
+              <span class="nt-svc-pill" data-v="Diseño de cejas" data-p="juli" onclick="ntSvcToggle(this)">Diseño de cejas</span>
+              <span class="nt-svc-pill" data-v="Laminado de cejas" data-p="juli" onclick="ntSvcToggle(this)">Laminado de cejas</span>
+            </div>
+            <div class="nt-svc-summary" id="nt-svc-summary"></div>
+          </div>`;
+  const juliPicker = `<div class="nt-svc-wrap" id="nt-svc-picker">
+            <div class="nt-svc-grp"><span class="nt-svc-who">💅 Julieta</span>Uñas · Pestañas · Cejas</div>
+            <div class="nt-svc-pills">
+              <span class="nt-svc-pill" data-v="Manicuría semipermanente" data-p="juli" onclick="ntSvcToggle(this)">Semi manos</span>
+              <span class="nt-svc-pill" data-v="Pies semipermanente" data-p="juli" onclick="ntSvcToggle(this)">Semi pies</span>
+              <span class="nt-svc-pill" data-v="Soft gel" data-p="juli" onclick="ntSvcToggle(this)">Soft gel</span>
+              <span class="nt-svc-pill" data-v="Capping" data-p="juli" onclick="ntSvcToggle(this)">Capping</span>
+              <span class="nt-svc-pill" data-v="Extras (French, baby boomer, ojo de gatto, cromo)" data-p="juli" onclick="ntSvcToggle(this)">Extras diseño</span>
+              <span class="nt-svc-pill" data-v="Full diseño" data-p="juli" onclick="ntSvcToggle(this)">Full diseño</span>
+              <span class="nt-svc-pill" data-v="Retiro de semi" data-p="juli" onclick="ntSvcToggle(this)">Retiro de semi</span>
+              <span class="nt-svc-pill" data-v="Retiro Soft / Capping" data-p="juli" onclick="ntSvcToggle(this)">Retiro soft/capping</span>
+              <span class="nt-svc-pill" data-v="Lifting de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Lifting de pestañas</span>
+              <span class="nt-svc-pill" data-v="Perfilado de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Perfilado de pestañas</span>
+              <span class="nt-svc-pill" data-v="Laminado de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Laminado de pestañas</span>
+              <span class="nt-svc-pill" data-v="Henna de pestañas" data-p="juli" onclick="ntSvcToggle(this)">Henna de pestañas</span>
+              <span class="nt-svc-pill" data-v="Diseño de cejas" data-p="juli" onclick="ntSvcToggle(this)">Diseño de cejas</span>
+              <span class="nt-svc-pill" data-v="Laminado de cejas" data-p="juli" onclick="ntSvcToggle(this)">Laminado de cejas</span>
+            </div>
+            <div class="nt-svc-summary" id="nt-svc-summary"></div>
+          </div>`;
+
   return `
   <div class="db-page-title">Nuevo turno</div>
   <div class="db-page-sub">Cargá manualmente los turnos que llegan por WhatsApp · <strong>${activeUser?activeUser.nombre:''}</strong></div>
@@ -2473,14 +2578,13 @@ function renderNT(){
       <div class="nt-fg"><label>Teléfono</label><input id="nt-t" type="tel" placeholder="11 xxxx-xxxx"></div>
     </div>
     <div class="nt-row full" style="margin-bottom:16px">
-      <div class="nt-fg"><label>Servicio</label>
-        <select id="nt-s"><option value="">Seleccioná un servicio</option>
-          ${svcs.map(s=>`<option>${s}</option>`).join('')}
-        </select>
+      <div class="nt-fg">
+        <label>Servicio <small style="color:var(--blush);font-size:10px;text-transform:none;font-weight:300">(elegí uno o más)</small></label>
+        ${isMaru ? maruPicker : juliPicker}
       </div>
     </div>
     <div class="nt-row">
-      <div class="nt-fg"><label>Fecha (dd/mm/aaaa)</label><input id="nt-f" type="text" placeholder="${new Date().getDate().toString().padStart(2,'0')}/${(new Date().getMonth()+1).toString().padStart(2,'0')}/${new Date().getFullYear()}"></div>
+      <div class="nt-fg"><label>Fecha (dd/mm/aaaa)</label><input id="nt-f" type="text" placeholder="${todayStr}" value="${todayStr}"></div>
       <div class="nt-fg"><label>Horario</label>
         <select id="nt-h">
           <option>09:00 – 10:00</option><option>10:00 – 11:00</option><option>11:00 – 12:00</option>
@@ -2559,23 +2663,88 @@ function saveEdit(){
 }
 
 /* ── AGREGAR MANUAL ── */
+
+/* ── nt-svc-picker helpers (nuevo turno dashboard) ── */
+function ntSvcToggle(pill){
+  if(pill.classList.contains('on')){ pill.classList.remove('on'); }
+  else { pill.classList.add('on'); }
+  ntSvcUpdateSummary();
+}
+function ntSvcUpdateSummary(){
+  var items = ntSvcGetSelected();
+  var el = document.getElementById('nt-svc-summary');
+  if(!el) return;
+  if(items.length){
+    el.textContent = '✓ ' + items.map(function(x){ return x.v; }).join(' · ');
+    el.classList.add('vis');
+  } else {
+    el.textContent = '';
+    el.classList.remove('vis');
+  }
+}
+function ntSvcGetSelected(){
+  var result = [];
+  var pills = document.querySelectorAll('#nt-svc-picker .nt-svc-pill.on');
+  for(var i=0; i<pills.length; i++){
+    result.push({ v: pills[i].getAttribute('data-v'), p: pills[i].getAttribute('data-p') });
+  }
+  return result;
+}
+function ntSvcClear(){
+  var pills = document.querySelectorAll('#nt-svc-picker .nt-svc-pill');
+  for(var i=0; i<pills.length; i++){ pills[i].classList.remove('on'); }
+  var el = document.getElementById('nt-svc-summary');
+  if(el){ el.textContent=''; el.classList.remove('vis'); }
+}
+
 function addManual(){
-  const n=document.getElementById('nt-n').value.trim();
-  const t=document.getElementById('nt-t').value.trim();
-  const s=document.getElementById('nt-s').value;
-  const f=document.getElementById('nt-f').value.trim();
-  const h=document.getElementById('nt-h').value;
-  const nota=document.getElementById('nt-nota').value.trim();
-  const esel=document.querySelector('[name="nt-e"]:checked');
-  const e=esel?esel.value:'confirmado';
-  if(!n){showToast('⚠ Ingresá el nombre del cliente');return;}
-  if(!s){showToast('⚠ Seleccioná un servicio');return;}
-  if(!f){showToast('⚠ Ingresá la fecha');return;}
-  const ts=getTurnos(),id=ts.length?Math.max(...ts.map(x=>x.id))+1:1;
-  ts.push({id,n,t,s,f,h,e,nota});
-  saveTurnos(ts);
-  showToast(`✓ Turno de ${n.split(' ')[0]} agregado como ${e}`);
-  dbTab('pendientes',document.querySelectorAll('.db-menu')[1]);
+  const n    = document.getElementById('nt-n').value.trim();
+  const t    = document.getElementById('nt-t').value.trim();
+  const f    = document.getElementById('nt-f').value.trim();
+  const h    = document.getElementById('nt-h').value;
+  const nota = document.getElementById('nt-nota').value.trim();
+  const esel = document.querySelector('[name="nt-e"]:checked');
+  const e    = esel ? esel.value : 'confirmado';
+
+  // Leer servicios del picker de pills
+  const svcs = ntSvcGetSelected();
+  const s = svcs.length ? svcs.map(x=>x.v).join(' + ') : '';
+
+  if(!n){ showToast('⚠ Ingresá el nombre del cliente'); return; }
+  if(!s){ showToast('⚠ Seleccioná al menos un servicio'); return; }
+  if(!f){ showToast('⚠ Ingresá la fecha'); return; }
+
+  // Si Maru agrega turnos de Julieta, guardar en el storage correcto
+  const isMaru = activeUser && activeUser.u === 'maru';
+  const hasJuli = svcs.some(x => x.p === 'juli');
+  const hasMaru = svcs.some(x => x.p === 'maru');
+
+  function guardarEn(uKey, lista){
+    const ts = getTurnosUser(uKey);
+    const id = ts.length ? Math.max(...ts.map(x=>x.id)) + 1 : 1;
+    ts.push({ id, n, t, s: lista.join(' + '), f, h, e, nota, origen:'manual' });
+    saveTurnosUser(uKey, ts);
+  }
+
+  if(isMaru){
+    // Maru puede guardar servicios de ella misma y/o de Julieta
+    const listaM = svcs.filter(x=>x.p==='maru').map(x=>x.v);
+    const listaJ = svcs.filter(x=>x.p==='juli').map(x=>x.v);
+    if(listaM.length) guardarEn('maru', listaM);
+    if(listaJ.length) guardarEn('julieta', listaJ);
+  } else {
+    // Julieta solo guarda sus propios turnos
+    guardarEn(activeUser.u, svcs.map(x=>x.v));
+  }
+
+  const destLabel = isMaru && hasJuli && hasMaru ? 'Maru y Julieta'
+                  : isMaru && hasJuli ? 'Julieta' : activeUser.nombre;
+  showToast(`✓ Turno de ${n.split(' ')[0]} agregado (${e}) → ${destLabel}`);
+  ntSvcClear();
+  document.getElementById('nt-n').value = '';
+  document.getElementById('nt-t').value = '';
+  document.getElementById('nt-nota').value = '';
+  dbTab('pendientes', document.querySelectorAll('.db-menu')[1]);
 }
 function clearNT(){renderTab('nuevo');}
 
@@ -2589,46 +2758,69 @@ function updateJuliBadge(){
   b.style.display=pend?'inline':'none';
 }
 
-function renderJulieta(){
+function renderJulieta(filt, q){
   if(!activeUser||activeUser.u!=='maru') return '<div class="db-empty"><p>Acceso restringido.</p></div>';
+  filt = filt || 'todos';
+  q    = (q || '').toLowerCase().trim();
+
   const julTs   = getTurnosUser('julieta');
   const hoy     = new Date();
-  const fmtHoy  = `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`;
+  const fmtHoy  = ('0'+hoy.getDate()).slice(-2)+'/'+('0'+(hoy.getMonth()+1)).slice(-2)+'/'+hoy.getFullYear();
   const manana  = new Date(hoy); manana.setDate(hoy.getDate()+1);
-  const fmtMan  = `${manana.getDate().toString().padStart(2,'0')}/${(manana.getMonth()+1).toString().padStart(2,'0')}/${manana.getFullYear()}`;
-  const pend    = julTs.filter(t=>t.e==='pendiente');
-  const conf    = julTs.filter(t=>t.e==='confirmado');
-  const hoyTs   = julTs.filter(t=>t.f===fmtHoy&&t.e!=='cancelado').sort((a,b)=>a.h.localeCompare(b.h));
-  const manTs   = julTs.filter(t=>t.f===fmtMan&&t.e!=='cancelado').sort((a,b)=>a.h.localeCompare(b.h));
+  const fmtMan  = ('0'+manana.getDate()).slice(-2)+'/'+('0'+(manana.getMonth()+1)).slice(-2)+'/'+manana.getFullYear();
 
-  // próximos 5 confirmados a partir de hoy
-  const proximos = julTs
-    .filter(t=>t.e==='confirmado'&&t.f>=fmtHoy)
-    .sort((a,b)=>a.f.localeCompare(b.f)||a.h.localeCompare(b.h))
-    .slice(0,6);
+  const pend  = julTs.filter(t=>t.e==='pendiente');
+  const conf  = julTs.filter(t=>t.e==='confirmado');
+  const hoyN  = julTs.filter(t=>t.f===fmtHoy&&t.e!=='cancelado').length;
+  const total = julTs.length;
+
+  // Filtrar para la tabla
+  let visible = julTs.slice();
+  if(filt === 'pendiente')  visible = visible.filter(t=>t.e==='pendiente');
+  if(filt === 'confirmado') visible = visible.filter(t=>t.e==='confirmado');
+  if(filt === 'cancelado')  visible = visible.filter(t=>t.e==='cancelado');
+  if(filt === 'hoy')        visible = visible.filter(t=>t.f===fmtHoy);
+  if(q) visible = visible.filter(t=>
+    t.n.toLowerCase().includes(q)||
+    t.s.toLowerCase().includes(q)||
+    (t.f||'').includes(q)
+  );
+  visible.sort((a,b)=>a.f.localeCompare(b.f)||a.h.localeCompare(b.h));
 
   const miniCard = t => `<div class="juli-mini-item">
     <div class="juli-mini-av">${t.n.charAt(0)}</div>
     <div style="flex:1;min-width:0">
-      <div class="juli-mini-name">${t.n.split(' ')[0]}</div>
+      <div class="juli-mini-name">${t.n}</div>
       <div class="juli-mini-serv">${t.s}</div>
+      ${t.nota?`<div style="font-size:10px;color:var(--muted);font-style:italic;margin-top:1px">${t.nota}</div>`:''}
     </div>
     <div class="juli-mini-time">
       <div class="juli-mini-date">${t.f}</div>
-      <div class="juli-mini-h">${t.h.split(' ')[0]}</div>
+      <div class="juli-mini-h">${t.h&&t.h!=='—'?t.h.split(' ')[0]:''}</div>
     </div>
-    ${badge(t.e)}
+    <div style="display:flex;gap:5px;margin-left:8px;flex-shrink:0">
+      ${t.e==='pendiente'?`
+        <button class="juli-confirm-btn" onclick="juliConfirm(${t.id})" title="Confirmar">✓</button>
+        <button class="juli-cancel-btn"  onclick="juliCancel(${t.id})"  title="Cancelar">✕</button>
+      `:''}
+      ${t.e==='confirmado'?`
+        <button class="tb wsp" onclick="juliWsp(${t.id})" title="WhatsApp" style="padding:5px 9px;font-size:10px">📲</button>
+        <button class="juli-cancel-btn" onclick="juliCancel(${t.id})" title="Cancelar" style="padding:5px 9px">✕</button>
+      `:''}
+      ${badge(t.e)}
+    </div>
   </div>`;
 
   return `
   <div class="db-page-title">Turnos de Julieta 💅</div>
-  <div class="db-page-sub">Vista de control — solo visible para vos, Maru</div>
+  <div class="db-page-sub">Seguimiento en tiempo real — solo visible para vos, Maru</div>
 
   <div class="juli-panel">
     <div class="juli-panel-hdr">
       <div class="juli-panel-title">
         💅 Julieta
-        <span class="juli-panel-badge">${julTs.length} turnos totales</span>
+        <span class="juli-panel-badge">${total} totales</span>
+        ${pend.length?`<span class="juli-panel-badge" style="background:rgba(196,151,90,.4)">⏳ ${pend.length} pendientes</span>`:''}
       </div>
       <a href="https://wa.me/${WSP_JULI}?text=${encodeURIComponent('Hola Julieta! 👋 Te consulto por los turnos')}" target="_blank"
          style="background:rgba(255,255,255,.2);color:#fff;padding:7px 14px;border-radius:3px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:background .2s"
@@ -2640,59 +2832,67 @@ function renderJulieta(){
       <div class="juli-stats">
         <div class="juli-stat"><div class="juli-stat-n">${pend.length}</div><div class="juli-stat-l">Pendientes</div></div>
         <div class="juli-stat"><div class="juli-stat-n">${conf.length}</div><div class="juli-stat-l">Confirmados</div></div>
-        <div class="juli-stat"><div class="juli-stat-n">${hoyTs.length}</div><div class="juli-stat-l">Hoy</div></div>
+        <div class="juli-stat"><div class="juli-stat-n">${hoyN}</div><div class="juli-stat-l">Hoy</div></div>
+        <div class="juli-stat"><div class="juli-stat-n">${total}</div><div class="juli-stat-l">Total</div></div>
       </div>
 
       ${pend.length ? `<div class="juli-alert">
         <span style="font-size:18px">⏳</span>
-        <span>Julieta tiene <strong>${pend.length} turno${pend.length>1?'s':''} pendiente${pend.length>1?'s':''}</strong> sin confirmar.</span>
-      </div>` : ''}
+        <span>Julieta tiene <strong>${pend.length} turno${pend.length>1?'s':''} pendiente${pend.length>1?'s':''}</strong> sin confirmar. Podés confirmarlo desde acá.</span>
+      </div>` : `<div style="text-align:center;padding:6px 0 2px;font-size:13px;color:var(--muted)">✅ Sin pendientes para Julieta</div>`}
 
-      <div class="db-h" style="margin-top:8px">Hoy <span class="db-h-count">${hoyTs.length}</span></div>
-      ${hoyTs.length
-        ? `<div class="juli-mini-list">${hoyTs.map(miniCard).join('')}</div>`
-        : `<div class="juli-empty">Sin turnos para hoy ✨</div>`}
+      <div class="juli-filter-bar">
+        <input class="juli-search" type="text" placeholder="🔍 Buscar nombre, servicio, fecha…"
+               oninput="document.getElementById('dbContent').innerHTML=renderJulieta('${filt}',this.value)"
+               value="${q}">
+        <button class="juli-fbtn ${filt==='todos'?'on':''}"       onclick="document.getElementById('dbContent').innerHTML=renderJulieta('todos','${q}')">Todos</button>
+        <button class="juli-fbtn ${filt==='pendiente'?'on':''}"   onclick="document.getElementById('dbContent').innerHTML=renderJulieta('pendiente','${q}')">Pendientes</button>
+        <button class="juli-fbtn ${filt==='confirmado'?'on':''}"  onclick="document.getElementById('dbContent').innerHTML=renderJulieta('confirmado','${q}')">Confirmados</button>
+        <button class="juli-fbtn ${filt==='hoy'?'on':''}"         onclick="document.getElementById('dbContent').innerHTML=renderJulieta('hoy','${q}')">Hoy</button>
+        <button class="juli-fbtn ${filt==='cancelado'?'on':''}"   onclick="document.getElementById('dbContent').innerHTML=renderJulieta('cancelado','${q}')">Cancelados</button>
+      </div>
 
-      ${manTs.length ? `
-      <div class="db-h" style="margin-top:16px">Mañana <span class="db-h-count">${manTs.length}</span></div>
-      <div class="juli-mini-list">${manTs.map(miniCard).join('')}</div>` : ''}
-
-      ${proximos.length ? `
-      <div class="db-h" style="margin-top:16px">Próximos confirmados <span class="db-h-count">${proximos.length}</span></div>
-      <div class="juli-mini-list">${proximos.map(miniCard).join('')}</div>` : ''}
-
-      ${!hoyTs.length && !manTs.length && !proximos.length
-        ? `<div class="juli-empty">Sin próximos turnos cargados para Julieta.</div>` : ''}
-    </div>
-    <div class="juli-ver-mas" onclick="verTodosJulieta()">
-      Ver todos los turnos de Julieta →
+      <div class="db-h">${visible.length} resultado${visible.length!==1?'s':''} <span class="db-h-count">${filt!=='todos'?filt:''}</span></div>
+      ${visible.length
+        ? `<div class="juli-mini-list">${visible.map(miniCard).join('')}</div>`
+        : `<div class="juli-empty">Sin turnos con este filtro ✨</div>`}
     </div>
   </div>`;
 }
 
+/* acciones rápidas sobre turnos de Julieta (desde panel de Maru) */
+function juliConfirm(id){
+  const ts = getTurnosUser('julieta');
+  const t  = ts.find(x=>x.id===id);
+  if(!t) return;
+  t.e = 'confirmado';
+  saveTurnosUser('julieta', ts);
+  showToast(`✓ Turno de ${t.n.split(' ')[0]} confirmado`);
+  updateJuliBadge();
+  document.getElementById('dbContent').innerHTML = renderJulieta();
+}
+function juliCancel(id){
+  const ts = getTurnosUser('julieta');
+  const t  = ts.find(x=>x.id===id);
+  if(!t || !confirm(`¿Cancelar turno de ${t.n}?`)) return;
+  t.e = 'cancelado';
+  saveTurnosUser('julieta', ts);
+  showToast(`Turno de ${t.n.split(' ')[0]} cancelado`);
+  updateJuliBadge();
+  document.getElementById('dbContent').innerHTML = renderJulieta();
+}
+function juliWsp(id){
+  const ts = getTurnosUser('julieta');
+  const t  = ts.find(x=>x.id===id);
+  if(!t) return;
+  const msg = `Hola ${t.n.split(' ')[0]}! 🌸 Te confirmo tu turno con Julieta:\n✨ Servicio: ${t.s}\n📅 Fecha: ${t.f}\n🕐 Horario: ${t.h}\n\n¡Te esperamos! Cualquier duda escribinos.`;
+  const dest = t.t && t.t.length > 5 ? '549'+t.t : WSP_JULI;
+  window.open('https://wa.me/'+dest+'?text='+encodeURIComponent(msg), '_blank');
+}
+
 function verTodosJulieta(){
   if(!activeUser||activeUser.u!=='maru') return;
-  // Render tabla completa de turnos de Juli en el mismo content
-  const julTs = getTurnosUser('julieta');
-  const c = document.getElementById('dbContent');
-  c.innerHTML = `
-    <div class="db-page-title">Todos los turnos de Julieta 💅</div>
-    <div class="db-page-sub">${julTs.length} turno${julTs.length!==1?'s':''} registrados · Solo lectura</div>
-    <div style="margin-bottom:16px">
-      <button class="btn-dp secondary" onclick="dbTab('julieta',document.getElementById('menuJuli'))">← Volver al resumen</button>
-    </div>
-    ${julTs.length
-      ? julTs.map(t=>`<div class="tc">
-          <div class="tc-av">${t.n.charAt(0)}</div>
-          <div class="tc-body">
-            <div class="tc-name">${t.n}</div>
-            <div class="tc-det"><span>📱 ${t.t||'—'}</span><span>✨ ${t.s}</span></div>
-            <div class="tc-dt"><span>📅 ${t.f}</span><span>🕐 ${t.h}</span></div>
-            ${t.nota?`<div class="tc-nota">💬 ${t.nota}</div>`:''}
-          </div>
-          ${badge(t.e)}
-        </div>`).join('')
-      : '<div class="db-empty"><div class="db-empty-icon">🗒</div><p>Sin turnos registrados para Julieta.</p></div>'}`;
+  document.getElementById('dbContent').innerHTML = renderJulieta('todos','');
 }
 
 

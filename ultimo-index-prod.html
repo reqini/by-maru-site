@@ -469,27 +469,49 @@ section{padding:100px 8%;}
 .btn-wsp{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:#fff;padding:16px;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .3s;}
 .btn-wsp:hover{background:#1fbd5c;}
 
+/* ── panel julieta (visible solo para maru) ── */
+.juli-panel{background:var(--white);border-radius:6px;border:1px solid rgba(212,167,154,.25);overflow:hidden;margin-bottom:24px;}
+.juli-panel-hdr{background:linear-gradient(135deg,var(--blush),var(--rose));padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.juli-panel-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#fff;display:flex;align-items:center;gap:10px;}
+.juli-panel-badge{background:rgba(255,255,255,.22);color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;letter-spacing:1px;}
+.juli-panel-body{padding:0 20px 16px;}
+.juli-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 0 12px;}
+.juli-stat{text-align:center;}
+.juli-stat-n{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--deep);}
+.juli-stat-l{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.juli-alert{background:rgba(196,151,90,.1);border:1px solid rgba(196,151,90,.3);border-radius:4px;padding:10px 14px;margin:6px 0 10px;font-size:13px;color:#7a5a10;display:flex;align-items:center;gap:10px;}
+.juli-mini-list{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;}
+.juli-mini-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--cream);border-radius:4px;font-size:12px;cursor:default;}
+.juli-mini-av{width:28px;height:28px;border-radius:50%;background:var(--blush);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:#fff;flex-shrink:0;}
+.juli-mini-name{font-weight:500;color:var(--bark);}
+.juli-mini-serv{color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+.juli-mini-time{margin-left:auto;text-align:right;flex-shrink:0;}
+.juli-mini-date{color:var(--deep);font-weight:500;}
+.juli-mini-h{color:var(--muted);margin-top:1px;}
+.juli-empty{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
+.juli-ver-mas{display:flex;align-items:center;justify-content:center;padding:10px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-top:1px solid rgba(180,122,110,.1);transition:color .2s;gap:6px;}
+.juli-ver-mas:hover{color:var(--rose);}
+
 /* ── multi-select servicios ── */
 .svc-picker-wrap{margin-top:4px;}
-.svc-group-hdr{font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);padding:10px 0 6px;margin-top:8px;
-  border-top:1px solid rgba(180,122,110,.12);display:flex;align-items:center;gap:8px;}
-.svc-group-hdr:first-child{border-top:none;margin-top:0;}
-.svc-group-hdr .svc-who{font-size:11px;background:var(--warm);color:var(--deep);
+.svc-grp-hdr{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  padding:10px 0 6px;margin-top:8px;border-top:1px solid rgba(180,122,110,.12);
+  display:flex;align-items:center;gap:8px;}
+.svc-grp-hdr:first-child{border-top:none;margin-top:0;}
+.svc-grp-who{font-size:11px;background:var(--warm);color:var(--deep);
   padding:2px 10px;border-radius:20px;letter-spacing:.5px;text-transform:none;}
-.svc-pills{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:4px;}
+.svc-pills{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:2px;}
 .svc-pill{display:inline-flex;align-items:center;padding:6px 14px;
-  border:1px solid rgba(180,122,110,.28);border-radius:20px;
-  font-size:12px;color:var(--muted);cursor:pointer;
-  transition:all .18s;user-select:none;background:var(--cream);
-  -webkit-tap-highlight-color:transparent;}
+  border:1px solid rgba(180,122,110,.3);border-radius:20px;
+  font-size:12px;color:var(--muted);cursor:pointer;background:var(--cream);
+  transition:all .18s;-webkit-tap-highlight-color:transparent;user-select:none;}
 .svc-pill:hover{border-color:var(--rose);color:var(--deep);background:var(--warm);}
-.svc-pill.on-maru{background:var(--deep);color:var(--cream);border-color:var(--deep);}
-.svc-pill.on-juli{background:var(--blush);color:#fff;border-color:var(--blush);}
-.svc-summary{margin-top:8px;padding:10px 14px;background:var(--warm);border-radius:3px;
+.svc-pill.sel-maru{background:var(--deep);color:var(--cream);border-color:var(--deep);}
+.svc-pill.sel-juli{background:var(--blush);color:#fff;border-color:var(--blush);}
+.svc-summary{margin-top:8px;padding:9px 13px;background:var(--warm);border-radius:3px;
   font-size:12px;color:var(--deep);border-left:3px solid var(--blush);
-  line-height:1.6;display:none;}
-.svc-summary.visible{display:block;}
+  display:none;line-height:1.5;}
+.svc-summary.show{display:block;}
 
 /* COTIZACIÓN */
 #cotizacion{background:var(--deep);padding:100px 8%;}
@@ -1231,40 +1253,42 @@ button, a{
           <div class="form-group"><label>Teléfono</label><input type="tel" id="tn-t" placeholder="11 xxxx-xxxx"></div>
         </div>
         <div class="form-group">
-          <label>Servicio <small style="color:var(--blush);font-size:10px;letter-spacing:1px;text-transform:none">(elegí uno o más)</small></label>
+          <label>Servicio
+            <small style="color:var(--blush);font-size:10px;font-weight:300;text-transform:none"> (elegí uno o más)</small>
+          </label>
           <div class="svc-picker-wrap" id="svc-picker">
-            <div class="svc-group-hdr"><span class="svc-who">💆 Maru</span>Masajes &amp; Facial</div>
+            <div class="svc-grp-hdr"><span class="svc-grp-who">💆 Maru</span>Masajes &amp; Facial</div>
             <div class="svc-pills">
-              <span class="svc-pill" data-v="Limpieza facial simple"     data-p="maru">Limpieza facial simple</span>
-              <span class="svc-pill" data-v="Limpieza facial profunda"   data-p="maru">Limpieza facial profunda</span>
-              <span class="svc-pill" data-v="Limpieza doble profunda"    data-p="maru">Limpieza doble profunda</span>
-              <span class="svc-pill" data-v="Tratamiento para acné"      data-p="maru">Tratamiento acné</span>
-              <span class="svc-pill" data-v="Peeling manual"             data-p="maru">Peeling manual</span>
-              <span class="svc-pill" data-v="Peeling mecánico"           data-p="maru">Peeling mecánico</span>
-              <span class="svc-pill" data-v="Peeling enzimático"         data-p="maru">Peeling enzimático</span>
-              <span class="svc-pill" data-v="Alta frecuencia"            data-p="maru">Alta frecuencia</span>
-              <span class="svc-pill" data-v="Masaje facial"              data-p="maru">Masaje facial</span>
-              <span class="svc-pill" data-v="Masaje relajante"           data-p="maru">Masaje relajante</span>
-              <span class="svc-pill" data-v="Masaje descontracturante"   data-p="maru">Masaje descontracturante</span>
-              <span class="svc-pill" data-v="Masaje con piedras calientes" data-p="maru">Piedras calientes</span>
-              <span class="svc-pill" data-v="Drenaje linfático"          data-p="maru">Drenaje linfático</span>
+              <span class="svc-pill" data-v="Limpieza facial simple"     data-p="maru" onclick="svcToggle(this)">Limpieza facial simple</span>
+              <span class="svc-pill" data-v="Limpieza facial profunda"   data-p="maru" onclick="svcToggle(this)">Limpieza facial profunda</span>
+              <span class="svc-pill" data-v="Limpieza doble profunda"    data-p="maru" onclick="svcToggle(this)">Limpieza doble profunda</span>
+              <span class="svc-pill" data-v="Tratamiento para acné"      data-p="maru" onclick="svcToggle(this)">Tratamiento acné</span>
+              <span class="svc-pill" data-v="Peeling manual"             data-p="maru" onclick="svcToggle(this)">Peeling manual</span>
+              <span class="svc-pill" data-v="Peeling mecánico"           data-p="maru" onclick="svcToggle(this)">Peeling mecánico</span>
+              <span class="svc-pill" data-v="Peeling enzimático"         data-p="maru" onclick="svcToggle(this)">Peeling enzimático</span>
+              <span class="svc-pill" data-v="Alta frecuencia"            data-p="maru" onclick="svcToggle(this)">Alta frecuencia</span>
+              <span class="svc-pill" data-v="Masaje facial"              data-p="maru" onclick="svcToggle(this)">Masaje facial</span>
+              <span class="svc-pill" data-v="Masaje relajante"           data-p="maru" onclick="svcToggle(this)">Masaje relajante</span>
+              <span class="svc-pill" data-v="Masaje descontracturante"   data-p="maru" onclick="svcToggle(this)">Masaje descontracturante</span>
+              <span class="svc-pill" data-v="Masaje con piedras calientes" data-p="maru" onclick="svcToggle(this)">Piedras calientes</span>
+              <span class="svc-pill" data-v="Drenaje linfático"          data-p="maru" onclick="svcToggle(this)">Drenaje linfático</span>
             </div>
-            <div class="svc-group-hdr"><span class="svc-who">💅 Julieta</span>Uñas · Pestañas · Cejas</div>
+            <div class="svc-grp-hdr"><span class="svc-grp-who">💅 Julieta</span>Uñas · Pestañas · Cejas</div>
             <div class="svc-pills">
-              <span class="svc-pill" data-v="Manicuría semipermanente"   data-p="juli">Semi manos</span>
-              <span class="svc-pill" data-v="Pies semipermanente"        data-p="juli">Semi pies</span>
-              <span class="svc-pill" data-v="Soft gel"                   data-p="juli">Soft gel</span>
-              <span class="svc-pill" data-v="Capping"                    data-p="juli">Capping</span>
-              <span class="svc-pill" data-v="Full diseño"                data-p="juli">Full diseño</span>
-              <span class="svc-pill" data-v="Extras (French, baby boomer, ojo de gatto, cromo)" data-p="juli">Extras diseño</span>
-              <span class="svc-pill" data-v="Retiro de semi"             data-p="juli">Retiro semi</span>
-              <span class="svc-pill" data-v="Retiro Soft / Capping"      data-p="juli">Retiro soft/capping</span>
-              <span class="svc-pill" data-v="Lifting de pestañas"        data-p="juli">Lifting pestañas</span>
-              <span class="svc-pill" data-v="Perfilado de pestañas"      data-p="juli">Perfilado pestañas</span>
-              <span class="svc-pill" data-v="Laminado de pestañas"       data-p="juli">Laminado pestañas</span>
-              <span class="svc-pill" data-v="Henna de pestañas"          data-p="juli">Henna pestañas</span>
-              <span class="svc-pill" data-v="Diseño de cejas"            data-p="juli">Diseño cejas</span>
-              <span class="svc-pill" data-v="Laminado de cejas"          data-p="juli">Laminado cejas</span>
+              <span class="svc-pill" data-v="Manicuría semipermanente"   data-p="juli" onclick="svcToggle(this)">Semi manos</span>
+              <span class="svc-pill" data-v="Pies semipermanente"        data-p="juli" onclick="svcToggle(this)">Semi pies</span>
+              <span class="svc-pill" data-v="Soft gel"                   data-p="juli" onclick="svcToggle(this)">Soft gel</span>
+              <span class="svc-pill" data-v="Capping"                    data-p="juli" onclick="svcToggle(this)">Capping</span>
+              <span class="svc-pill" data-v="Full diseño"                data-p="juli" onclick="svcToggle(this)">Full diseño</span>
+              <span class="svc-pill" data-v="Extras (French, baby boomer, ojo de gatto, cromo)" data-p="juli" onclick="svcToggle(this)">Extras diseño</span>
+              <span class="svc-pill" data-v="Retiro de semi"             data-p="juli" onclick="svcToggle(this)">Retiro semi</span>
+              <span class="svc-pill" data-v="Retiro Soft / Capping"      data-p="juli" onclick="svcToggle(this)">Retiro soft/capping</span>
+              <span class="svc-pill" data-v="Lifting de pestañas"        data-p="juli" onclick="svcToggle(this)">Lifting pestañas</span>
+              <span class="svc-pill" data-v="Perfilado de pestañas"      data-p="juli" onclick="svcToggle(this)">Perfilado pestañas</span>
+              <span class="svc-pill" data-v="Laminado de pestañas"       data-p="juli" onclick="svcToggle(this)">Laminado pestañas</span>
+              <span class="svc-pill" data-v="Henna de pestañas"          data-p="juli" onclick="svcToggle(this)">Henna pestañas</span>
+              <span class="svc-pill" data-v="Diseño de cejas"            data-p="juli" onclick="svcToggle(this)">Diseño cejas</span>
+              <span class="svc-pill" data-v="Laminado de cejas"          data-p="juli" onclick="svcToggle(this)">Laminado cejas</span>
             </div>
             <div class="svc-summary" id="svc-summary"></div>
           </div>
@@ -1423,6 +1447,7 @@ button, a{
       <div class="db-sidebar-section">Gestión</div>
       <div class="db-menu" onclick="dbTab('todos',this)"><span class="mi">👥</span> Todos los turnos</div>
       <div class="db-menu" onclick="dbTab('nuevo',this)"><span class="mi">➕</span> Nuevo turno</div>
+            <div class="db-menu" id="menuJuli" onclick="dbTab('julieta',this)" style="display:none"><span class="mi">💅</span> Turnos de Julieta <span id="juliBadge" style="margin-left:auto;background:var(--blush);color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;display:none"></span></div>
       <div class="db-sidebar-footer">
         <p>Los datos se guardan localmente en este dispositivo.</p>
       </div>
@@ -1548,9 +1573,8 @@ const GI = [
   { tipo:'foto',  src:'assets/imagen-018.jpeg', label:'Laminado de pestañas',      sub:'Efecto espectacular, hasta 6 semanas',       cat:'unas' },
   { tipo:'foto',  src:'assets/imagen-019.jpeg', label:'Masaje descontracturante',  sub:'Alivio de contracturas profundas',           cat:'unas'  },
 /*   { tipo:'video', src:'assets/video-1.mp4',     label:'Masaje paso a paso',        sub:'Técnica relajante completa',                 cat:'masajes'  },
-  { tipo:'video', src:'assets/video-2.mp4',     label:'Semipermanente — proceso',  sub:'De la preparación al resultado final',       cat:'unas'     },
-  { tipo:'video', src:'assets/video-3.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'pestanas' }, */
-  { tipo:'video', src:'assets/video-4.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'msajes' }
+  { tipo:'video', src:'assets/video-2.mp4',     label:'Semipermanente — proceso',  sub:'De la preparación al resultado final',       cat:'unas'     }, */
+  { tipo:'video', src:'assets/video-4.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'pestanas' }
 /*   { tipo:'video', src:'assets/video-4.mp4',     label:'Peeling enzimático',        sub:'Protocolo de renovación celular',            cat:'facial'   },
   { tipo:'video', src:'assets/video-5.mp4',     label:'Nail art full diseño',      sub:'Arte detallado a mano libre',                cat:'unas'     },
   { tipo:'video', src:'assets/video-6.mp4',     label:'Henna de cejas',            sub:'Color y definición natural',                 cat:'cejas'    },
@@ -1567,9 +1591,8 @@ const GAL_SPEED = 4500;
 
 /* ── GRID ─────────────────────────────────────────────── */
 function renderGaleria() {
-  // Videos ocultos de la galería pública
-  const GI_FOTOS = GI.filter(x => x.tipo === 'foto');
-galItems = galFilter === 'todos'
+  var GI_FOTOS = GI.filter(function(x){ return x.tipo === 'foto'; });
+  galItems = galFilter === 'todos'
   ? [...GI]
   : GI.filter(x => x.cat === galFilter);
 
@@ -1952,130 +1975,99 @@ function notificarEmail(asunto, cuerpo){
 }
 
 // Guarda un turno desde el formulario público y abre WhatsApp
-
-/* ── svc-picker helpers ── */
-(function(){
-  // delegación de eventos — un solo listener en el documento
-  document.addEventListener('click', function(e){
-    const pill = e.target.closest('.svc-pill');
-    if(!pill) return;
-    const prof = pill.dataset.p;
-    const onClass = prof==='maru' ? 'on-maru' : 'on-juli';
-    const offClass= prof==='maru' ? 'on-juli'  : 'on-maru';
-    // toggle la clase activa; quitar la contraria (no aplica aquí pero por limpieza)
-    if(pill.classList.contains(onClass)){
-      pill.classList.remove(onClass);
-    } else {
-      pill.classList.remove(offClass);
-      pill.classList.add(onClass);
-    }
-    svcUpdateSummary();
-  });
-
-  function svcUpdateSummary(){
-    const sel = svcGetSelected();
-    const el  = document.getElementById('svc-summary');
-    if(!el) return;
-    if(sel.length){
-      el.textContent = '✓ ' + sel.map(x=>x.v).join(' · ');
-      el.classList.add('visible');
-    } else {
-      el.textContent = '';
-      el.classList.remove('visible');
-    }
+/* ── svc-picker ── */
+function svcToggle(pill){
+  var prof = pill.getAttribute('data-p');
+  var cls  = prof === 'maru' ? 'sel-maru' : 'sel-juli';
+  if(pill.classList.contains(cls)){ pill.classList.remove(cls); }
+  else { pill.classList.add(cls); }
+  svcUpdateSummary();
+}
+function svcUpdateSummary(){
+  var items = svcGetSelected();
+  var el = document.getElementById('svc-summary');
+  if(!el) return;
+  if(items.length){
+    el.textContent = '✓ ' + items.map(function(x){ return x.v; }).join(' · ');
+    el.classList.add('show');
+  } else {
+    el.textContent = '';
+    el.classList.remove('show');
   }
-
-  // Exponer helpers al scope global
-  window.svcGetSelected = function(){
-    return [...document.querySelectorAll('#svc-picker .svc-pill.on-maru, #svc-picker .svc-pill.on-juli')]
-      .map(p=>({v: p.dataset.v, prof: p.dataset.p}));
-  };
-  window.svcClear = function(){
-    document.querySelectorAll('#svc-picker .svc-pill').forEach(p=>{
-      p.classList.remove('on-maru','on-juli');
-    });
-    const el = document.getElementById('svc-summary');
-    if(el){ el.textContent=''; el.classList.remove('visible'); }
-  };
-})();
+}
+function svcGetSelected(){
+  var result = [];
+  var pills = document.querySelectorAll('#svc-picker .svc-pill.sel-maru, #svc-picker .svc-pill.sel-juli');
+  for(var i = 0; i < pills.length; i++){
+    result.push({ v: pills[i].getAttribute('data-v'), p: pills[i].getAttribute('data-p') });
+  }
+  return result;
+}
+function svcClear(){
+  var pills = document.querySelectorAll('#svc-picker .svc-pill');
+  for(var i = 0; i < pills.length; i++){
+    pills[i].classList.remove('sel-maru','sel-juli');
+  }
+  var el = document.getElementById('svc-summary');
+  if(el){ el.textContent = ''; el.classList.remove('show'); }
+}
 
 function reservarTurno(){
-  const n   = document.getElementById('tn-n').value.trim();
-  const tel = document.getElementById('tn-t').value.trim();
-  const h   = document.getElementById('tn-h').value;
-  const f   = document.getElementById('selDateTxt').textContent;
-
-  // Servicios seleccionados desde el picker de pills
-  const svcs = window.svcGetSelected ? window.svcGetSelected() : [];
+  var n   = document.getElementById('tn-n').value.trim();
+  var tel = document.getElementById('tn-t').value.trim();
+  var h   = document.getElementById('tn-h').value;
+  var selTxt = document.getElementById('selDateTxt');
+  var f   = selTxt ? selTxt.textContent : '';
+  var svcs = svcGetSelected();
 
   if(!n)           { alert('Por favor ingresá tu nombre'); return; }
   if(!svcs.length) { alert('Por favor seleccioná al menos un servicio'); return; }
 
-  let fechaFmt = f;
+  var fechaFmt = f;
   if(selDate){
-    fechaFmt = `${selDate.getDate().toString().padStart(2,'0')}/${(selDate.getMonth()+1).toString().padStart(2,'0')}/${selDate.getFullYear()}`;
+    fechaFmt = ('0'+selDate.getDate()).slice(-2) + '/'
+             + ('0'+(selDate.getMonth()+1)).slice(-2) + '/'
+             + selDate.getFullYear();
   }
 
-  // Separar servicios por profesional
-  const svcsMaru = svcs.filter(x => x.prof === 'maru').map(x => x.v);
-  const svcsJuli = svcs.filter(x => x.prof === 'juli').map(x => x.v);
+  var svcsMaru = svcs.filter(function(x){ return x.p === 'maru'; }).map(function(x){ return x.v; });
+  var svcsJuli = svcs.filter(function(x){ return x.p === 'juli'; }).map(function(x){ return x.v; });
 
-  function enviarAProfesional(dest, prof, lista){
-    // 1. Guardar en dashboard del profesional
-    const ts = getTurnosUser(dest === WSP_MARU ? 'maru' : 'julieta');
-    const id = ts.length ? Math.max(...ts.map(x=>x.id)) + 1 : 1;
-    ts.push({
-      id, n, t: tel.replace(/\D/g,''),
-      s: lista.join(' + '),
-      f: fechaFmt, h: h || '—',
-      e: 'pendiente',
-      nota: `Formulario web · Para ${prof}`,
-      origen: 'web'
-    });
+  function enviarA(dest, prof, lista){
+    var ts = getTurnosUser(dest === WSP_MARU ? 'maru' : 'julieta');
+    var id = ts.length ? Math.max.apply(null, ts.map(function(x){ return x.id; })) + 1 : 1;
+    ts.push({ id:id, n:n, t:tel.replace(/\D/g,''), s:lista.join(' + '),
+              f:fechaFmt, h:h||'\u2014', e:'pendiente',
+              nota:'Formulario web \u00b7 Para '+prof, origen:'web' });
     saveTurnosUser(dest === WSP_MARU ? 'maru' : 'julieta', ts);
 
-    // 2. WhatsApp
-    let msg = `Hola ${prof}! 🌸 Nueva solicitud de turno:
-
-👤 Nombre: ${n}
-`;
-    if(tel)                           msg += `📱 Tel: ${tel}
-`;
-    if(fechaFmt && fechaFmt !== '—')  msg += `📅 Fecha: ${fechaFmt}
-`;
-    if(h)                             msg += `🕐 Horario: ${h}
-`;
-    msg += `✨ Servicio${lista.length > 1 ? 's' : ''}: ${lista.join(', ')}
-
-¿Confirmás disponibilidad?`;
-    window.open(`https://wa.me/${dest}?text=${encodeURIComponent(msg)}`, '_blank');
-
-    // 3. Email CC
-    notificarEmail(
-      `Turno web — ${n} → ${prof}`,
-      `Servicios: ${lista.join(', ')}
-Fecha: ${fechaFmt}
-Horario: ${h}
-Tel: ${tel}`
-    );
+    var msg = 'Hola '+prof+'! \uD83C\uDF38 Nueva solicitud de turno:\n\n\uD83D\uDC64 Nombre: '+n+'\n';
+    if(tel)                           msg += '\uD83D\uDCF1 Tel: '+tel+'\n';
+    if(fechaFmt && fechaFmt !== '\u2014')  msg += '\uD83D\uDCC5 Fecha: '+fechaFmt+'\n';
+    if(h)                             msg += '\uD83D\uDD50 Horario: '+h+'\n';
+    msg += '\u2728 Servicio'+(lista.length>1?'s':'')+': '+lista.join(', ')+'\n\n\u00BFConfirm\u00E1s disponibilidad?';
+    window.open('https://wa.me/'+dest+'?text='+encodeURIComponent(msg), '_blank');
+    notificarEmail('Turno web \u2014 '+n+' \u2192 '+prof,
+                   'Servicios: '+lista.join(', ')+'\nFecha: '+fechaFmt+'\nHorario: '+h+'\nTel: '+tel);
   }
 
-  if(svcsMaru.length) enviarAProfesional(WSP_MARU, 'Maru', svcsMaru);
-  // Pequeño delay si van a las dos para no bloquear popups
+  if(svcsMaru.length) enviarA(WSP_MARU, 'Maru', svcsMaru);
   if(svcsJuli.length){
-    if(svcsMaru.length) setTimeout(()=> enviarAProfesional(WSP_JULI,'Julieta',svcsJuli), 350);
-    else                enviarAProfesional(WSP_JULI, 'Julieta', svcsJuli);
+    if(svcsMaru.length){ setTimeout(function(){ enviarA(WSP_JULI,'Julieta',svcsJuli); }, 350); }
+    else { enviarA(WSP_JULI, 'Julieta', svcsJuli); }
   }
 
-  const destLabel = svcsMaru.length && svcsJuli.length ? 'Maru y Julieta'
-                  : svcsMaru.length ? 'Maru' : 'Julieta';
-  showPublicToast(`✅ Solicitud enviada a ${destLabel}!`);
+  var destLabel = (svcsMaru.length && svcsJuli.length) ? 'Maru y Julieta'
+                : svcsMaru.length ? 'Maru' : 'Julieta';
+  showPublicToast('\u2705 Solicitud enviada a '+destLabel+'!');
 
-  // Limpiar formulario
-  ['tn-n','tn-t'].forEach(id => document.getElementById(id).value = '');
-  if(window.svcClear) window.svcClear();
-  document.getElementById('tn-h').selectedIndex = 0;
-  document.getElementById('selDate').style.display = 'none';
+  document.getElementById('tn-n').value = '';
+  document.getElementById('tn-t').value = '';
+  svcClear();
+  var tnH = document.getElementById('tn-h');
+  if(tnH) tnH.selectedIndex = 0;
+  var sdEl = document.getElementById('selDate');
+  if(sdEl) sdEl.style.display = 'none';
   selDate = null; renderCal();
 }
 
@@ -2213,11 +2205,15 @@ function openDash(){
   initDemo();
   document.getElementById('dashboard').classList.add('open');
   document.body.style.overflow='hidden';
-  // Actualizar nombre en navbar del dashboard
+  // Actualizar nombre en navbar
   const nameEl=document.querySelector('#dashboard .dn-right strong');
   if(nameEl&&activeUser)nameEl.textContent=activeUser.nombre;
+  // Mostrar item Julieta solo para Maru
+  const menuJuli=document.getElementById('menuJuli');
+  if(menuJuli) menuJuli.style.display=activeUser&&activeUser.u==='maru'?'flex':'none';
   startClock();
   updatePendBadge();
+  updateJuliBadge();
   dbTab('resumen',document.querySelector('.db-menu'));
 }
 function logout(){activeUser=null;document.getElementById('dashboard').classList.remove('open');document.body.style.overflow='';clearInterval(clockInt);}
@@ -2252,8 +2248,10 @@ function renderTab(tab){
   else if(tab==='pendientes')c.innerHTML=renderPend();
   else if(tab==='semana')c.innerHTML=renderSem(0);
   else if(tab==='todos')c.innerHTML=renderTodos();
+  else if(tab==='julieta')c.innerHTML=renderJulieta();
   else c.innerHTML=renderNT();
   updatePendBadge();
+  updateJuliBadge();
 }
 
 /* ── RESUMEN ── */
@@ -2335,7 +2333,9 @@ function renderResumen(){
   <div class="db-h">Próximos 7 días</div>
   <div style="background:var(--white);border-radius:6px;border:1px solid rgba(180,122,110,.1);padding:20px 24px">
     <div style="display:flex;gap:8px;align-items:flex-end;height:120px">${barHTML}</div>
-  </div>`;
+  </div>
+
+  ${activeUser&&activeUser.u==='maru'?renderJuliResumen():''}`;
 }
 
 /* ── PENDIENTES ── */
@@ -2579,6 +2579,152 @@ function addManual(){
 }
 function clearNT(){renderTab('nuevo');}
 
+/* ── VISTA JULIETA (solo para Maru) ── */
+function updateJuliBadge(){
+  const b=document.getElementById('juliBadge');
+  if(!b)return;
+  const julTs=getTurnosUser('julieta');
+  const pend=julTs.filter(t=>t.e==='pendiente').length;
+  b.textContent=pend;
+  b.style.display=pend?'inline':'none';
+}
+
+function renderJulieta(){
+  if(!activeUser||activeUser.u!=='maru') return '<div class="db-empty"><p>Acceso restringido.</p></div>';
+  const julTs   = getTurnosUser('julieta');
+  const hoy     = new Date();
+  const fmtHoy  = `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`;
+  const manana  = new Date(hoy); manana.setDate(hoy.getDate()+1);
+  const fmtMan  = `${manana.getDate().toString().padStart(2,'0')}/${(manana.getMonth()+1).toString().padStart(2,'0')}/${manana.getFullYear()}`;
+  const pend    = julTs.filter(t=>t.e==='pendiente');
+  const conf    = julTs.filter(t=>t.e==='confirmado');
+  const hoyTs   = julTs.filter(t=>t.f===fmtHoy&&t.e!=='cancelado').sort((a,b)=>a.h.localeCompare(b.h));
+  const manTs   = julTs.filter(t=>t.f===fmtMan&&t.e!=='cancelado').sort((a,b)=>a.h.localeCompare(b.h));
+
+  // próximos 5 confirmados a partir de hoy
+  const proximos = julTs
+    .filter(t=>t.e==='confirmado'&&t.f>=fmtHoy)
+    .sort((a,b)=>a.f.localeCompare(b.f)||a.h.localeCompare(b.h))
+    .slice(0,6);
+
+  const miniCard = t => `<div class="juli-mini-item">
+    <div class="juli-mini-av">${t.n.charAt(0)}</div>
+    <div style="flex:1;min-width:0">
+      <div class="juli-mini-name">${t.n.split(' ')[0]}</div>
+      <div class="juli-mini-serv">${t.s}</div>
+    </div>
+    <div class="juli-mini-time">
+      <div class="juli-mini-date">${t.f}</div>
+      <div class="juli-mini-h">${t.h.split(' ')[0]}</div>
+    </div>
+    ${badge(t.e)}
+  </div>`;
+
+  return `
+  <div class="db-page-title">Turnos de Julieta 💅</div>
+  <div class="db-page-sub">Vista de control — solo visible para vos, Maru</div>
+
+  <div class="juli-panel">
+    <div class="juli-panel-hdr">
+      <div class="juli-panel-title">
+        💅 Julieta
+        <span class="juli-panel-badge">${julTs.length} turnos totales</span>
+      </div>
+      <a href="https://wa.me/${WSP_JULI}?text=${encodeURIComponent('Hola Julieta! 👋 Te consulto por los turnos')}" target="_blank"
+         style="background:rgba(255,255,255,.2);color:#fff;padding:7px 14px;border-radius:3px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:background .2s"
+         onmouseover="this.style.background='rgba(255,255,255,.35)'" onmouseout="this.style.background='rgba(255,255,255,.2)'">
+        📲 WhatsApp
+      </a>
+    </div>
+    <div class="juli-panel-body">
+      <div class="juli-stats">
+        <div class="juli-stat"><div class="juli-stat-n">${pend.length}</div><div class="juli-stat-l">Pendientes</div></div>
+        <div class="juli-stat"><div class="juli-stat-n">${conf.length}</div><div class="juli-stat-l">Confirmados</div></div>
+        <div class="juli-stat"><div class="juli-stat-n">${hoyTs.length}</div><div class="juli-stat-l">Hoy</div></div>
+      </div>
+
+      ${pend.length ? `<div class="juli-alert">
+        <span style="font-size:18px">⏳</span>
+        <span>Julieta tiene <strong>${pend.length} turno${pend.length>1?'s':''} pendiente${pend.length>1?'s':''}</strong> sin confirmar.</span>
+      </div>` : ''}
+
+      <div class="db-h" style="margin-top:8px">Hoy <span class="db-h-count">${hoyTs.length}</span></div>
+      ${hoyTs.length
+        ? `<div class="juli-mini-list">${hoyTs.map(miniCard).join('')}</div>`
+        : `<div class="juli-empty">Sin turnos para hoy ✨</div>`}
+
+      ${manTs.length ? `
+      <div class="db-h" style="margin-top:16px">Mañana <span class="db-h-count">${manTs.length}</span></div>
+      <div class="juli-mini-list">${manTs.map(miniCard).join('')}</div>` : ''}
+
+      ${proximos.length ? `
+      <div class="db-h" style="margin-top:16px">Próximos confirmados <span class="db-h-count">${proximos.length}</span></div>
+      <div class="juli-mini-list">${proximos.map(miniCard).join('')}</div>` : ''}
+
+      ${!hoyTs.length && !manTs.length && !proximos.length
+        ? `<div class="juli-empty">Sin próximos turnos cargados para Julieta.</div>` : ''}
+    </div>
+    <div class="juli-ver-mas" onclick="verTodosJulieta()">
+      Ver todos los turnos de Julieta →
+    </div>
+  </div>`;
+}
+
+function verTodosJulieta(){
+  if(!activeUser||activeUser.u!=='maru') return;
+  // Render tabla completa de turnos de Juli en el mismo content
+  const julTs = getTurnosUser('julieta');
+  const c = document.getElementById('dbContent');
+  c.innerHTML = `
+    <div class="db-page-title">Todos los turnos de Julieta 💅</div>
+    <div class="db-page-sub">${julTs.length} turno${julTs.length!==1?'s':''} registrados · Solo lectura</div>
+    <div style="margin-bottom:16px">
+      <button class="btn-dp secondary" onclick="dbTab('julieta',document.getElementById('menuJuli'))">← Volver al resumen</button>
+    </div>
+    ${julTs.length
+      ? julTs.map(t=>`<div class="tc">
+          <div class="tc-av">${t.n.charAt(0)}</div>
+          <div class="tc-body">
+            <div class="tc-name">${t.n}</div>
+            <div class="tc-det"><span>📱 ${t.t||'—'}</span><span>✨ ${t.s}</span></div>
+            <div class="tc-dt"><span>📅 ${t.f}</span><span>🕐 ${t.h}</span></div>
+            ${t.nota?`<div class="tc-nota">💬 ${t.nota}</div>`:''}
+          </div>
+          ${badge(t.e)}
+        </div>`).join('')
+      : '<div class="db-empty"><div class="db-empty-icon">🗒</div><p>Sin turnos registrados para Julieta.</p></div>'}`;
+}
+
+
+function renderJuliResumen(){
+  const julTs = getTurnosUser('julieta');
+  const hoy   = new Date();
+  const fmtH  = `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`;
+  const pend  = julTs.filter(t=>t.e==='pendiente').length;
+  const hoyN  = julTs.filter(t=>t.f===fmtH&&t.e!=='cancelado').length;
+  const total = julTs.length;
+  return `<div style="margin-top:28px">
+  <div class="juli-panel">
+    <div class="juli-panel-hdr">
+      <div class="juli-panel-title">
+        💅 Julieta — control rápido
+        ${pend?`<span class="juli-panel-badge">⏳ ${pend} pendiente${pend>1?'s':''}</span>`:''}
+      </div>
+      <button class="tb ok" style="background:rgba(255,255,255,.2);border:none;color:#fff;cursor:pointer"
+        onclick="dbTab('julieta',document.getElementById('menuJuli'))">Ver detalle →</button>
+    </div>
+    <div class="juli-panel-body">
+      <div class="juli-stats">
+        <div class="juli-stat"><div class="juli-stat-n">${hoyN}</div><div class="juli-stat-l">Hoy</div></div>
+        <div class="juli-stat"><div class="juli-stat-n">${pend}</div><div class="juli-stat-l">Pendientes</div></div>
+        <div class="juli-stat"><div class="juli-stat-n">${total}</div><div class="juli-stat-l">Total</div></div>
+      </div>
+      ${pend?`<div class="juli-alert"><span>⏳</span><span>Julieta tiene <strong>${pend} turno${pend>1?'s':''}</strong> sin confirmar.</span></div>`:'<div style="text-align:center;padding:8px;font-size:13px;color:var(--muted)">✅ Sin pendientes para Julieta</div>'}
+    </div>
+  </div></div>`;
+}
+
+
 function showToast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2800);
@@ -2588,3 +2734,4 @@ renderGaleria();
 </script>
 </body>
 </html>
+
