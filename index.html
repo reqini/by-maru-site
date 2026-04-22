@@ -1127,9 +1127,9 @@ button, a{
 <section id="galeria">
   <div class="section-tag">Galería</div>
   <h2 class="section-title">Mirá mis <em>trabajos</em></h2>
-  <p class="section-sub">Resultados reales, clientes reales. Cada trabajo es una muestra de dedicación y detalle.</p>
+  <p class="section-sub" style="display: none;">Resultados reales, clientes reales. Cada trabajo es una muestra de dedicación y detalle.</p>
 
-  <div class="galeria-filters">
+  <div class="galeria-filters" style="display: none;">
     <button class="gal-filter active" onclick="filterGal('todos',this)">Todos</button>
     <button class="gal-filter" onclick="filterGal('masajes',this)">Masajes</button>
     <button class="gal-filter" onclick="filterGal('facial',this)">Facial</button>
@@ -1572,9 +1572,9 @@ const GI = [
   { tipo:'foto',  src:'assets/imagen-017.jpeg', label:'Masaje descontracturante',  sub:'Alivio de contracturas profundas',           cat:'unas'  },
   { tipo:'foto',  src:'assets/imagen-018.jpeg', label:'Laminado de pestañas',      sub:'Efecto espectacular, hasta 6 semanas',       cat:'unas' },
   { tipo:'foto',  src:'assets/imagen-019.jpeg', label:'Masaje descontracturante',  sub:'Alivio de contracturas profundas',           cat:'unas'  },
-  { tipo:'video', src:'assets/video-1.mp4',     label:'Masaje paso a paso',        sub:'Técnica relajante completa',                 cat:'masajes'  },
-  { tipo:'video', src:'assets/video-2.mp4',     label:'Semipermanente — proceso',  sub:'De la preparación al resultado final',       cat:'unas'     },
-  { tipo:'video', src:'assets/video-3.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'pestanas' }
+/*   { tipo:'video', src:'assets/video-1.mp4',     label:'Masaje paso a paso',        sub:'Técnica relajante completa',                 cat:'masajes'  },
+  { tipo:'video', src:'assets/video-2.mp4',     label:'Semipermanente — proceso',  sub:'De la preparación al resultado final',       cat:'unas'     }, */
+  { tipo:'video', src:'assets/video-4.mp4',     label:'Lifting de pestañas',       sub:'Proceso completo en tiempo real',            cat:'pestanas' }
 /*   { tipo:'video', src:'assets/video-4.mp4',     label:'Peeling enzimático',        sub:'Protocolo de renovación celular',            cat:'facial'   },
   { tipo:'video', src:'assets/video-5.mp4',     label:'Nail art full diseño',      sub:'Arte detallado a mano libre',                cat:'unas'     },
   { tipo:'video', src:'assets/video-6.mp4',     label:'Henna de cejas',            sub:'Color y definición natural',                 cat:'cejas'    },
@@ -1592,8 +1592,9 @@ const GAL_SPEED = 4500;
 /* ── GRID ─────────────────────────────────────────────── */
 function renderGaleria() {
   var GI_FOTOS = GI.filter(function(x){ return x.tipo === 'foto'; });
-  galItems = galFilter === 'todos' ? GI_FOTOS.slice()
-           : GI_FOTOS.filter(function(x){ return x.cat === galFilter; });
+  galItems = galFilter === 'todos'
+  ? [...GI]
+  : GI.filter(x => x.cat === galFilter);
 
   const grid = document.getElementById('masonryGrid');
   if (!grid) return;
